@@ -1,0 +1,162 @@
+.titlelisting {
+    font-family: 'Verdana', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.button1{
+    background-color: #436cb4;
+    border: 3px solid transparent;
+    color: white;
+    padding: 8px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 12px;
+    border-radius: 12px;
+    margin: 15px auto 15px auto;
+    transition-duration: 0.4s;
+}
+
+.button1:hover {
+    background-color: #ffffff; 
+    border: 3px solid #436cb4;
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+}
+
+.img1 {
+    width: 400px;
+    height: 200px;
+    object-fit: scale-down;
+    overflow: hidden;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    margin: 20px;
+    text-align: center;
+    font-family: 'Verdana', sans-serif;
+    float: left;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.checkoutcard {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    height: 200px;
+    width: 200px;
+    max-width: 400px;
+    margin: 20px;
+    text-align: center;
+    font-family: 'Verdana', sans-serif;
+    float: left;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.sellcard {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 20px; 
+    border: 1px solid black;
+    max-width: 90%;
+    text-align: center;
+    font-family: 'Verdana', sans-serif;
+    justify-content: center;
+    display: flex;
+}
+
+.innercard {
+    margin: 20px; 
+    width:400px;
+    
+    text-align: center;
+    font-family: 'Verdana', sans-serif;
+    float: left;
+    flex-wrap: wrap;
+    justify-content: center;
+
+
+}
+
+.sub {
+    
+    max-width: 200px;
+    text-align: center;
+    font-family: 'Verdana', sans-serif;
+    float: right;
+    
+    justify-content: center;
+}
+
+.body{
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    height: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   }
+
+.cartcontainer {
+    width: 70%;
+    height: 85%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0px 25px 40px #1687d933;
+}
+
+.checkout {
+	float: right;
+	margin-right: 5%;
+	width: 28%;
+}
+
+.total{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.subtotal{
+	font-size: 22px;
+	font-family: 'Verdana', sans-serif;
+	font-weight: 700;
+	color: #202020;
+}
+
+.count{
+	font-size: 20px;
+	font-family: 'Verdana', sans-serif;
+	font-weight: 600;
+	color: #202020;
+}
+
+.counter{
+	width: 15%;
+	display: flex;
+	justify-content: space-between;
+	align-items: right;
+}
+
+.btn{
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: #d9d9d9;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 20px;
+	font-family: 'Open Sans';
+	font-weight: 900;
+	color: #202020;
+	cursor: pointer;
+}
+
+.searchCriteria{
+    font-family: 'Verdana', sans-serif;
+}

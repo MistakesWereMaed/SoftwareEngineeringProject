@@ -1,0 +1,138 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema SWE-Database
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema SWE-Database
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `SWE-Database` DEFAULT CHARACTER SET utf8 ;
+USE `SWE-Database` ;
+
+-- -----------------------------------------------------
+-- Table `SWE-Database`.`USER`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SWE-Database`.`USER` (
+  `USER_ID` INT NOT NULL,
+  `USER_USERNAME` VARCHAR(45) NOT NULL,
+  `USER_PASSWORD` VARCHAR(45) NOT NULL,
+  `USER_EMAIL` VARCHAR(45) NOT NULL,
+  `USER_FNAME` VARCHAR(45) NOT NULL,
+  `USER_LNAME` VARCHAR(45) NOT NULL,
+  `USER_TYPE` ENUM("USER", "ADMIN") NOT NULL,
+  PRIMARY KEY (`USER_ID`),
+  UNIQUE INDEX `USER_ID_UNIQUE` (`USER_ID` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SWE-Database`.`ITEM`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SWE-Database`.`ITEM` (
+  `ITEM_ID` INT NOT NULL,
+  `ITEM_NAME` VARCHAR(45) NOT NULL,
+  `ITEM_TYPE` VARCHAR(45) NOT NULL,
+  `ITEM_DESC` VARCHAR(45) NULL,
+  `ITEM_PRICE` DECIMAL NOT NULL,
+  PRIMARY KEY (`ITEM_ID`),
+  UNIQUE INDEX `ITEM_ID_UNIQUE` (`ITEM_ID` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SWE-Database`.`ORDER_`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SWE-Database`.`ORDER_` (
+  `ORDER_ID` INT NOT NULL,
+  `ORDER_DATE` DATETIME NOT NULL,
+  `ORDER_TOTAL` DECIMAL NOT NULL,
+  `ORDER_STATUS` ENUM("IN-PROGRESS", "COMPLETED") NULL,
+  `BUYER_ID` INT NOT NULL,
+  PRIMARY KEY (`ORDER_ID`),
+  UNIQUE INDEX `ORDER_ID_UNIQUE` (`ORDER_ID` ASC) VISIBLE,
+  INDEX `BUYER_ID_idx` (`BUYER_ID` ASC) VISIBLE,
+  CONSTRAINT `BUYER_ID`
+    FOREIGN KEY (`BUYER_ID`)
+    REFERENCES `SWE-Database`.`USER` (`USER_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SWE-Database`.`DISCOUNT`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SWE-Database`.`DISCOUNT` (
+  `DISCOUNT_ID` INT NOT NULL,
+  `DISCOUNT_PERCENT` FLOAT NOT NULL,
+  PRIMARY KEY (`DISCOUNT_ID`),
+  UNIQUE INDEX `DISCOUNT_ID_UNIQUE` (`DISCOUNT_ID` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SWE-Database`.`LISTING`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SWE-Database`.`LISTING` (
+  `LISTING_ID` INT NOT NULL,
+  `LISTING_QUANTITY` INT NOT NULL,
+  `LISTING_PRICE` DECIMAL NOT NULL,
+  `LISTING_DATE` DATE NOT NULL,
+  `ITEM_ID` INT NOT NULL,
+  `USER_ID` INT NOT NULL,
+  `LISTING_IMG` VARCHAR(200) NULL,
+  PRIMARY KEY (`LISTING_ID`),
+  UNIQUE INDEX `LISTING_ID_UNIQUE` (`LISTING_ID` ASC) VISIBLE,
+  INDEX `ITEM_ID_idx` (`ITEM_ID` ASC) VISIBLE,
+  INDEX `USER_ID_idx` (`USER_ID` ASC) VISIBLE,
+  CONSTRAINT `ITEM_ID`
+    FOREIGN KEY (`ITEM_ID`)
+    REFERENCES `SWE-Database`.`ITEM` (`ITEM_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `USER_ID`
+    FOREIGN KEY (`USER_ID`)
+    REFERENCES `SWE-Database`.`USER` (`USER_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SWE-Database`.`ORDER_SUBTABLE`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SWE-Database`.`ORDER_SUBTABLE` (
+  `ORDER_ID` INT NOT NULL,
+  `SELLER_ID` INT NOT NULL,
+  `LISTING_ID` INT NOT NULL,
+  `ORDER_QUANTITY` INT NULL,
+  `ORDER_SUBTOTAL` DECIMAL NULL,
+  PRIMARY KEY (`ORDER_ID`, `LISTING_ID`),
+  INDEX `SELLER_ID_idx` (`SELLER_ID` ASC) VISIBLE,
+  INDEX `LISTING_ID_idx` (`LISTING_ID` ASC) VISIBLE,
+  CONSTRAINT `ORDER_ID`
+    FOREIGN KEY (`ORDER_ID`)
+    REFERENCES `SWE-Database`.`ORDER_` (`ORDER_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `SELLER_ID`
+    FOREIGN KEY (`SELLER_ID`)
+    REFERENCES `SWE-Database`.`USER` (`USER_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `LISTING_ID`
+    FOREIGN KEY (`LISTING_ID`)
+    REFERENCES `SWE-Database`.`LISTING` (`LISTING_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
