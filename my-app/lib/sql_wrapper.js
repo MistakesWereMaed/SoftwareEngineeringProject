@@ -3,10 +3,10 @@ import mysql from 'mysql2/promise';
 export async function query({ query, values = [] }) {
 
     const db = await mysql.createConnection({
-        host     : 'swe-project.ccyzsw6kb7va.us-east-2.rds.amazonaws.com',
+        host     : 'localhost',
         port     : '3306',
-        user     : 'admin',
-        password : 'SWEProject',
+        user     : 'root',
+        password : 'ApplicationProject',
         database : 'SWE-Database'
     });
     try {
@@ -15,7 +15,6 @@ export async function query({ query, values = [] }) {
         return results;
     } catch (err) {
         throw Error(err.message);
-        return { error };
     } 
 
 }
